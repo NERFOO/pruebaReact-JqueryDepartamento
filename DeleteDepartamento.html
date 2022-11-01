@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <h2>¿Estás seguro de que desea eliminar el departamento?</h2>
+    <button onclick="eliminarDept()" class="btn btn-danger">Eliminar</button>
+    <h1 id="h1Id" style="color: red;"></h1>
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('id');
+
+
+        function eliminarDept() {
+            var url = "https://apicruddepartamentoscore.azurewebsites.net/";
+            var request = "/api/Departamentos/" + id;
+            $.ajax({
+                "url": url + request ,
+                "type": "DELETE" ,
+                "success": function() {
+                    console.log("Eliminado");
+                }
+            });
+            $("#h1Id").text("El departamento " + id + " ha sido eliminado");
+
+            location.href = "./Departamento.html";
+        }
+
+
+
+        $(document).ready(function () {
+
+        });
+    </script>
+</body>
+</html>

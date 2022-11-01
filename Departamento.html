@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="margin: 7%;">
+
+    <a href="./CreateDepartamento.html" class="btn btn-info">Nuevo departamento</a>
+
+    <table id="tabla" class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>DEPARTAMENTO</th>
+                <th>LOCALIDAD</th>
+                <th>CRUD</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        var url = "https://apicruddepartamentoscore.azurewebsites.net/";
+        function mostrarDatos() {
+            var request = "/api/Departamentos/";
+
+            $.ajax({
+                "url": url + request ,
+                "method": "GET" ,
+                "dataType" : "json" ,
+                "success" : function(data) {
+                    $.each(data, function(index, dept) {
+                        var filas = $("<tr>");
+
+                        var id = $("<td>", { "text": dept.numero });
+                        var nombre = $("<td>", { "text": dept.nombre });
+                        var localidad = $("<td>", { "text": dept.localidad });
+
+                        var cajaBoton = $("<td>");
+                        var btnDetalles = $("<a>", { "text": "Detalles", "class": "btn btn-success", "href":`./DetalleDepartamento.html?id=${dept.numero}&nom=${dept.nombre}&loc=${dept.localidad}` });
+                        var btnModificar = $("<a>", { "text": "Modificar", "class": "btn btn-info", "href":`./UpdateDepartamento.html?id=${dept.numero}` });
+                        var btnEliminar = $("<a>", { "text": "Eliminar", "class": "btn btn-danger", "href":`./DeleteDepartamento.html?id=${dept.numero}` });
+
+                        filas.append(id);
+                        filas.append(nombre);
+                        filas.append(localidad);
+                        filas.append(cajaBoton);
+                        cajaBoton.append(btnDetalles);
+                        cajaBoton.append(btnModificar);
+                        cajaBoton.append(btnEliminar);
+
+                        $("#tabla tbody").append(filas);
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            mostrarDatos();
+
+
+
+        });
+    </script>
+</body>
+</html>

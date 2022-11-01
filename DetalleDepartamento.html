@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <br />
+    <h1>DetalleDepartamento</h1>
+    <br />
+
+    <div class="card" style="margin: 7%;">
+        <div class="card-header" id="divDetalle">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title" id="h5Id"></h5>
+            <p class="card-text" id="pLoc"></p>
+        </div>
+    </div>
+
+    <button onclick="volverAtras()" class="btn btn-success">Volver</button>
+
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        function volverAtras() {
+            location.href = "./Departamento.html";
+        }
+        $(document).ready(function () {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const id = urlParams.get('id');
+            const nom = urlParams.get('nom');
+            const loc = urlParams.get('loc');
+
+            $("#divDetalle").text("Detalles del departamento " + nom);
+            $("#h5Id").text("Id : " + id);
+            $("#pLoc").text("Localidad : " + loc);
+        });
+    </script>
+</body>
+</html>
